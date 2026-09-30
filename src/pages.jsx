@@ -586,27 +586,13 @@ const PricingPage = () => {
 
                   <div style={{ marginBottom: 28 }}>
                     {tier.price ? (
-                      <div>
-                        <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
-                          <span style={{ fontSize: 13, color: "var(--text-faint)" }}>USD</span>
-                          <span style={{ fontSize: 40, fontWeight: 700, letterSpacing: "-0.03em", color: c.text }}>${tier.price.toLocaleString()}</span>
-                          <span style={{ fontSize: 13, color: "var(--text-faint)", fontFamily: "var(--font-mono)" }}>{tier.period}</span>
-                        </div>
-                        {tier.bdtPrice && (
-                          <div style={{ fontSize: 12.5, color: "var(--text-dim)", marginTop: 4, fontFamily: "var(--font-mono)" }}>
-                            ≈ {tier.bdtPrice}
-                          </div>
-                        )}
+                      <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
+                        <span style={{ fontSize: 13, color: "var(--text-faint)" }}>USD</span>
+                        <span style={{ fontSize: 40, fontWeight: 700, letterSpacing: "-0.03em", color: c.text }}>${tier.price.toLocaleString()}</span>
+                        <span style={{ fontSize: 13, color: "var(--text-faint)", fontFamily: "var(--font-mono)" }}>{tier.period}</span>
                       </div>
                     ) : (
-                      <div>
-                        <div style={{ fontSize: 28, fontWeight: 700, color: c.text }}>Custom Architecture</div>
-                        {tier.bdtPrice && (
-                          <div style={{ fontSize: 12.5, color: "var(--text-dim)", marginTop: 4, fontFamily: "var(--font-mono)" }}>
-                            {tier.bdtPrice}
-                          </div>
-                        )}
-                      </div>
+                      <div style={{ fontSize: 28, fontWeight: 700, color: c.text }}>Custom Architecture</div>
                     )}
                   </div>
 

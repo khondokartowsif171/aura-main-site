@@ -311,7 +311,6 @@ const PORTFOLIO_DATA = {
       badge: "Self-Serve",
       price: 19,
       period: "/month",
-      bdtPrice: "৳১,৯৯৯ / মাস",
       description: "Autonomous AI sales agent for growing online shops and brands.",
       color: "violet",
       features: [
@@ -331,7 +330,6 @@ const PORTFOLIO_DATA = {
       badge: "Most Popular",
       price: 49,
       period: "/month",
-      bdtPrice: "৳৪,৯৯৯ / মাস",
       description: "Full omnichannel closing machine, COD fraud defense & multi-carrier MCP.",
       color: "cyan",
       features: [
@@ -352,7 +350,6 @@ const PORTFOLIO_DATA = {
       badge: "Custom Cloud",
       price: null,
       period: null,
-      bdtPrice: "Custom Architecture",
       description: "Dedicated enterprise infrastructure, custom LLM fine-tuning & ERP integration.",
       color: "amber",
       features: [
