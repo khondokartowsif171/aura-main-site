@@ -81,35 +81,35 @@ function App() {
     const META = {
       '': {
         title: `${BASE} — AI Agents, Automation & Full-Stack Dev`,
-        desc: 'Aura is an autonomous AI SaaS platform providing conversational AI sales agents, COD fraud defense, and Bangladesh's first Model Context Protocol (MCP) courier logistics engine for modern commerce brands.',
+        desc: "Aura is an autonomous AI SaaS platform providing conversational AI sales agents, COD fraud defense, and Bangladesh's first Model Context Protocol (MCP) courier logistics engine for modern commerce brands.",
       },
       services: {
         title: `Services — ${BASE}`,
-        desc: 'AI agents, web development, Web3, MT5 trading automation, data pipelines, DevOps, and Meta Ads AI — 7 production-ready services that ship to production.',
+        desc: "AI agents, web development, Web3, MT5 trading automation, data pipelines, DevOps, and Meta Ads AI — 7 production-ready services that ship to production.",
       },
       stack: {
         title: `Tech Stack — ${BASE}`,
-        desc: 'What actually runs our own live products: React, SvelteKit, Next.js, Node.js, Supabase, Google Gemini · Vertex AI, n8n, Solidity, Docker, Coolify, and more.',
+        desc: "What actually runs our own live products: React, SvelteKit, Next.js, Node.js, Supabase, Google Gemini · Vertex AI, n8n, Solidity, Docker, Coolify, and more.",
       },
       agents: {
         title: `AI Agents — ${BASE}`,
-        desc: 'Live demos of AI agents built with Google Gemini · Vertex AI, LangGraph, and n8n. Agents that triage, decide, and execute with tool access, memory, and audit trails.',
+        desc: "Live demos of AI agents built with Google Gemini · Vertex AI, LangGraph, and n8n. Agents that triage, decide, and execute with tool access, memory, and audit trails.",
       },
       timeline: {
         title: `Experience — ${BASE}`,
-        desc: 'Founded July 2026. Real, dated milestones — from founding Aura Ajentic AI in Dhaka to our first paying client to Meta Tech Provider status. Not a résumé.',
+        desc: "Founded July 2026. Real, dated milestones — from founding Aura Ajentic AI in Dhaka to our first paying client to Meta Tech Provider status. Not a résumé.",
       },
       contact: {
         title: `Contact — ${BASE}`,
-        desc: 'Get a quote for AI agents, automation, web development, Web3, or MT5 trading systems. Based in Dhaka, Bangladesh. Response within 24 hours.',
+        desc: "Get a quote for AI agents, automation, web development, Web3, or MT5 trading systems. Based in Dhaka, Bangladesh. Response within 24 hours.",
       },
       'case-studies': {
         title: `Case Studies — ${BASE}`,
-        desc: 'We\'re a new agency — real case studies are coming as our production work ships and proves out. See our own live products in the meantime.',
+        desc: "Explore our production metrics, customer growth, and live enterprise deployments powered by Aura Agentic AI.",
       },
       pricing: {
         title: `Pricing — ${BASE}`,
-        desc: 'Predictable B2B SaaS pricing for autonomous AI agents, Courier MCP logistics, and COD fraud defense. Starter, Growth, and Enterprise subscription plans.',
+        desc: "Predictable B2B SaaS pricing for autonomous AI agents, Courier MCP logistics, and COD fraud defense. Starter, Growth, and Enterprise subscription plans.",
       },
       blog: {
         title: `Blog — ${BASE}`,
