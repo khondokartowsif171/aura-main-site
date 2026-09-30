@@ -9,7 +9,7 @@ const Timeline = ({ lang = "en" }) => {
         <SectionHeader
           eyebrow={bn ? "যাত্রাপথ" : "Trajectory"}
           num="05 / 06"
-          title={bn ? "নতুন এজেন্সি, একটাই ধারা: প্রোডাকশনে কাজ করা সিস্টেম শিপ করা।" : "New agency, one through-line: shipping systems that work in production."}
+          title={bn ? "একটাই ধারা: প্রোডাকশনে কাজ করা স্বয়ংক্রিয় এআই সিস্টেম শিপ করা।" : "One through-line: shipping autonomous AI systems that work in production."}
         />
 
         <div style={{ position: "relative", paddingLeft: 32 }}>

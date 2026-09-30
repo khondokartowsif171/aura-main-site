@@ -81,7 +81,7 @@ function App() {
     const META = {
       '': {
         title: `${BASE} — AI Agents, Automation & Full-Stack Dev`,
-        desc: 'We build custom AI agents, automation pipelines, Web3 infrastructure, MT5 trading systems, and enterprise web apps. Based in Dhaka, Bangladesh — a new agency running our own live products first.',
+        desc: 'Aura is an autonomous AI SaaS platform providing conversational AI sales agents, COD fraud defense, and Bangladesh's first Model Context Protocol (MCP) courier logistics engine for modern commerce brands.',
       },
       services: {
         title: `Services — ${BASE}`,
@@ -109,7 +109,7 @@ function App() {
       },
       pricing: {
         title: `Pricing — ${BASE}`,
-        desc: 'Transparent pricing for AI agents, automation, and full-stack development. Starter, Growth, and Enterprise tiers. Fixed scope, no surprises.',
+        desc: 'Predictable B2B SaaS pricing for autonomous AI agents, Courier MCP logistics, and COD fraud defense. Starter, Growth, and Enterprise subscription plans.',
       },
       blog: {
         title: `Blog — ${BASE}`,

@@ -289,8 +289,8 @@ const Testimonials = ({ lang = "en" }) => {
           }}>
             <p style={{ margin: 0, fontSize: 16, color: "var(--text-dim)", lineHeight: 1.6 }}>
               {bn
-                ? "আমরা একটা নতুন এজেন্সি — real ফলাফল শীঘ্রই আসছে। এখনো কোনো বানানো testimonial দেখাব না।"
-                : "We're a new agency — real results coming soon. We'd rather show nothing than a made-up quote."}
+                ? "আমরা নতুন প্রডাক্ট শিপ করছি — কাস্টমার কেস স্টাডি ও ফলাফল শীঘ্রই আসছে।"
+                : "New customer deployments in progress — case studies and production metrics coming soon."}
             </p>
           </div>
         ) : (
@@ -549,21 +549,21 @@ const FlagshipProduct = ({ lang = "en" }) => {
         }}>
           <div>
             <span style={{ fontSize: 15, fontWeight: 500, color: "var(--text)" }}>
-              {bn ? "Aura-কে দিয়ে আপনার প্রোডাক্ট বানাতে চান?" : "Want Aura to build your product?"}
+              {bn ? "Aura AI প্ল্যাটফর্ম দিয়ে আপনার সেলস অটোমেট করতে চান?" : "Ready to automate your e-commerce sales with Aura AI?"}
             </span>
             <span style={{
               display: "block", fontSize: 13, color: "var(--text-faint)",
               marginTop: 3, fontFamily: "var(--font-mono)",
             }}>
-              {bn ? "ই-কমার্স · এআই মার্কেটপ্লেস · SaaS — $৪৯৯ থেকে শুরু · ২–৪ সপ্তাহে ডেলিভারি" : "E-commerce · AI marketplace · SaaS — from $499 · Delivered in 2–4 weeks"}
+              {bn ? "অটোনোমাস এআই সেলস এজেন্ট · কুরিয়ার MCP লজিস্টিকস · COD ফ্রড শিল্ড — $১৯/মাস থেকে শুরু" : "Autonomous AI Sales Agents · Courier MCP Logistics · COD Fraud Shield — from $19/mo"}
             </span>
           </div>
-          <a href="#/contact" style={{
+          <a href="#/pricing" style={{
             padding: "11px 24px",
             background: "var(--text)", color: "var(--bg)",
             borderRadius: 9, fontSize: 13.5, fontWeight: 500,
             textDecoration: "none", whiteSpace: "nowrap", flexShrink: 0,
-          }}>{bn ? "প্রজেক্ট শুরু করুন →" : "Start a Project →"}</a>
+          }}>{bn ? "প্ল্যান দেখুন →" : "Explore Plans →"}</a>
         </div>
       </div>
 

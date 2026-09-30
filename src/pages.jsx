@@ -539,9 +539,9 @@ const PricingPage = () => {
   return (
     <main>
       <PageHero
-        eyebrow="Pricing"
-        title={<>Transparent pricing. <span style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontWeight: 400 }}>No surprises.</span></>}
-        sub="Fixed-scope projects. No retainers for decks. Every tier ends with production code on your domain."
+        eyebrow="Platform Plans & Subscriptions"
+        title={<>Simple, predictable SaaS pricing. <span style={{ fontFamily: "var(--font-serif)", fontStyle: "italic", fontWeight: 400 }}>Built to scale with your sales.</span></>}
+        sub="Zero agency retainers or project markups. Power your e-commerce business with autonomous AI sales agents, COD fraud defense, and Bangladesh's 1st Courier MCP infrastructure."
       />
       <section style={{ padding: "80px 0 120px" }}>
         <div className="container">
@@ -586,13 +586,27 @@ const PricingPage = () => {
 
                   <div style={{ marginBottom: 28 }}>
                     {tier.price ? (
-                      <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
-                        <span style={{ fontSize: 13, color: "var(--text-faint)" }}>USD</span>
-                        <span style={{ fontSize: 40, fontWeight: 700, letterSpacing: "-0.03em", color: c.text }}>${tier.price.toLocaleString()}</span>
-                        <span style={{ fontSize: 13, color: "var(--text-faint)", fontFamily: "var(--font-mono)" }}>{tier.period}</span>
+                      <div>
+                        <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
+                          <span style={{ fontSize: 13, color: "var(--text-faint)" }}>USD</span>
+                          <span style={{ fontSize: 40, fontWeight: 700, letterSpacing: "-0.03em", color: c.text }}>${tier.price.toLocaleString()}</span>
+                          <span style={{ fontSize: 13, color: "var(--text-faint)", fontFamily: "var(--font-mono)" }}>{tier.period}</span>
+                        </div>
+                        {tier.bdtPrice && (
+                          <div style={{ fontSize: 12.5, color: "var(--text-dim)", marginTop: 4, fontFamily: "var(--font-mono)" }}>
+                            ≈ {tier.bdtPrice}
+                          </div>
+                        )}
                       </div>
                     ) : (
-                      <div style={{ fontSize: 28, fontWeight: 700, color: c.text }}>Custom Quote</div>
+                      <div>
+                        <div style={{ fontSize: 28, fontWeight: 700, color: c.text }}>Custom Architecture</div>
+                        {tier.bdtPrice && (
+                          <div style={{ fontSize: 12.5, color: "var(--text-dim)", marginTop: 4, fontFamily: "var(--font-mono)" }}>
+                            {tier.bdtPrice}
+                          </div>
+                        )}
+                      </div>
                     )}
                   </div>
 
@@ -633,17 +647,17 @@ const PricingPage = () => {
             gap: 24, alignItems: "center",
           }} className="pricing-cta-row">
             <div>
-              <h3 style={{ margin: "0 0 6px", fontSize: 18, fontWeight: 500 }}>Not sure which tier fits your project?</h3>
-              <p style={{ margin: 0, fontSize: 14, color: "var(--text-dim)" }}>Email us a brief description — we'll scope it and get back within 24 hours.</p>
+              <h3 style={{ margin: "0 0 6px", fontSize: 18, fontWeight: 500 }}>Looking for custom enterprise deployment or high-volume API access?</h3>
+              <p style={{ margin: 0, fontSize: 14, color: "var(--text-dim)" }}>Our engineering team deploys dedicated private cloud instances, custom domain fine-tuning, and direct ERP/CRM integrations.</p>
             </div>
             <a
-              href="mailto:ceo@auraajenticai.cloud?subject=Project Scoping"
+              href="mailto:ceo@auraajenticai.cloud?subject=Enterprise SaaS Consultation"
               style={{
                 padding: "12px 24px", background: "var(--text)", color: "var(--bg)",
                 borderRadius: 10, fontSize: 14, fontWeight: 500,
                 textDecoration: "none", whiteSpace: "nowrap",
               }}
-            >Get a Quote →</a>
+            >Talk to Engineering →</a>
           </div>
         </div>
       </section>
@@ -781,7 +795,7 @@ const BlogPage = () => {
           {articles.length === 0 ? (
             <div className="panel" style={{ padding: "56px 32px", textAlign: "center", borderRadius: "var(--radius)" }}>
               <p style={{ margin: 0, fontSize: 17, color: "var(--text-dim)", lineHeight: 1.65, maxWidth: 560, marginInline: "auto" }}>
-                We're a new agency — real technical write-ups are coming as our work actually ships
+                We're an early-stage startup — real technical write-ups are coming as our platform ships
                 and proves out in production. We'd rather show nothing here than a fabricated post.
               </p>
             </div>
@@ -1226,8 +1240,8 @@ const CaseStudiesPage = () => {
           {cases.length === 0 ? (
             <div className="panel" style={{ padding: "56px 32px", textAlign: "center", borderRadius: "var(--radius)" }}>
               <p style={{ margin: 0, fontSize: 17, color: "var(--text-dim)", lineHeight: 1.65, maxWidth: 560, marginInline: "auto" }}>
-                We're a new agency — real case studies are coming as our production work ships and proves
-                out. We'd rather show nothing here than a fabricated result.
+                We're an early-stage startup — live customer case studies are being documented as production
+                deployments prove out. We'd rather show nothing here than a fabricated result.
               </p>
               <a href="#/contact" style={{
                 display: "inline-flex", marginTop: 24,
