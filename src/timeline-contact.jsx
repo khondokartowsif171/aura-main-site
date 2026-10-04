@@ -1,14 +1,15 @@
 // Timeline + Contact + Footer
 
-const Timeline = () => {
+const Timeline = ({ lang = "en" }) => {
   const D = PORTFOLIO_DATA;
+  const bn = lang === "bn";
   return (
     <section id="timeline" style={{ padding: "120px 0", borderTop: "1px solid var(--line)" }}>
       <div className="container">
         <SectionHeader
-          eyebrow="Trajectory"
+          eyebrow={bn ? "যাত্রাপথ" : "Trajectory"}
           num="05 / 06"
-          title="Seven years, one through-line: shipping systems that work in production."
+          title={bn ? "একটাই ধারা: প্রোডাকশনে কাজ করা স্বয়ংক্রিয় এআই সিস্টেম শিপ করা।" : "One through-line: shipping autonomous AI systems that work in production."}
         />
 
         <div style={{ position: "relative", paddingLeft: 32 }}>
@@ -69,7 +70,7 @@ const Timeline = () => {
                     fontSize: 10.5,
                     color: "var(--text-dim)",
                     fontFamily: "var(--font-mono)",
-                  }}>{e.kind}</span>
+                  }}>{bn ? e.kindBn : e.kind}</span>
                 </div>
                 <div>
                   <h3 style={{
@@ -77,7 +78,7 @@ const Timeline = () => {
                     fontSize: 19,
                     fontWeight: 500,
                     letterSpacing: "-0.01em",
-                  }}>{e.role}</h3>
+                  }}>{bn ? e.roleBn : e.role}</h3>
                   <div style={{
                     marginTop: 4,
                     fontSize: 14,
@@ -90,7 +91,7 @@ const Timeline = () => {
                     lineHeight: 1.6,
                     color: "var(--text-dim)",
                     maxWidth: 600,
-                  }}>{e.detail}</p>
+                  }}>{bn ? e.detailBn : e.detail}</p>
                 </div>
               </div>
             </div>
@@ -141,15 +142,26 @@ const Contact = ({ lang = "en" }) => {
     if (Object.keys(e).length) return;
     setStatus("sending");
     try {
-      await fetch("https://n8n.auraajenticai.cloud/webhook/contact", {
+      const resp = await fetch("https://formsubmit.co/ajax/khondokartowsif171@gmail.com", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          _subject: `New Aura Inquiry — ${form.service}`,
+          _captcha: "false",
+          _template: "table",
+          name: form.name,
+          email: form.email,
+          service: form.service,
+          budget: form.budget || "Not specified",
+          message: form.message,
+        }),
       });
+      const data = await resp.json();
+      if (!data.success) throw new Error("failed");
       setStatus("sent");
     } catch {
       setStatus("idle");
-      setErrors({ message: "Network error — please email us directly." });
+      setErrors({ message: "Network error — please email us directly at ceo@auraajenticai.cloud" });
     }
   };
 
@@ -326,6 +338,17 @@ const Contact = ({ lang = "en" }) => {
               }}>
                 <Icons.Mail size={18} /> {D.brand.email}
               </a>
+              <a href={`https://wa.me/${D.brand.whatsapp}`} target="_blank" rel="noopener noreferrer" style={{
+                fontSize: 15,
+                fontWeight: 500,
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 10,
+                marginTop: 12,
+                color: "#25D366",
+              }}>
+                <Icons.WhatsApp size={16} /> +{D.brand.whatsapp.replace(/^(\d{3})(\d{4})(\d{6})$/, "$1 $2-$3")}
+              </a>
               <div style={{ marginTop: 24, display: "flex", gap: 8 }}>
                 {[
                   { i: Icons.Github, l: "GitHub", h: D.brand.socials.github },
@@ -347,7 +370,7 @@ const Contact = ({ lang = "en" }) => {
               </div>
             </div>
 
-            <ChatbotWidget />
+            
           </div>
         </div>
         <style>{`
@@ -360,152 +383,11 @@ const Contact = ({ lang = "en" }) => {
   );
 };
 
-const ChatbotWidget = () => {
-  const [msgs, setMsgs] = React.useState([
-    { role: "bot", text: "Ask me anything about the work — projects, stack choices, timelines." },
-  ]);
-  const [input, setInput] = React.useState("");
-  const [thinking, setThinking] = React.useState(false);
-  const scrollRef = React.useRef(null);
+const ChatbotWidget = () => null;
 
-  React.useEffect(() => {
-    if (scrollRef.current) scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-  }, [msgs, thinking]);
-
-  const reply = async (q) => {
-    setThinking(true);
-    try {
-      const text = await window.claude.complete(
-        `You are a concise portfolio assistant for Aura, a senior agentic AI & full-stack engineer with 7+ years experience. Domains: AI agents, Web3, MLM/EA dashboards, full-stack. Answer in 1-3 sentences, professional but friendly. Question: ${q}`
-      );
-      setMsgs(m => [...m, { role: "bot", text }]);
-    } catch (e) {
-      setMsgs(m => [...m, { role: "bot", text: "Aura's offline — drop a note via the form and I'll reply within 48h." }]);
-    }
-    setThinking(false);
-  };
-
-  const send = () => {
-    const q = input.trim();
-    if (!q) return;
-    setMsgs(m => [...m, { role: "user", text: q }]);
-    setInput("");
-    reply(q);
-  };
-
-  return (
-    <div className="panel" style={{ padding: 0, overflow: "hidden" }}>
-      <div style={{
-        padding: "16px 20px",
-        borderBottom: "1px solid var(--line)",
-        display: "flex",
-        alignItems: "center",
-        gap: 10,
-      }}>
-        <div style={{
-          width: 28, height: 28,
-          display: "grid", placeItems: "center",
-          borderRadius: 7,
-          background: "var(--accent-glow)",
-          color: "var(--accent)",
-        }}><Icons.Sparkles size={14} /></div>
-        <div>
-          <div style={{ fontSize: 13.5, fontWeight: 500 }}>Ask about my work</div>
-          <div style={{ fontSize: 11, color: "var(--text-faint)", fontFamily: "var(--font-mono)" }}>powered by claude · live</div>
-        </div>
-        <span style={{
-          marginLeft: "auto",
-          fontSize: 10.5,
-          padding: "2px 8px",
-          background: "color-mix(in srgb, var(--good) 15%, transparent)",
-          color: "var(--good)",
-          border: "1px solid color-mix(in srgb, var(--good) 30%, transparent)",
-          borderRadius: 999,
-          fontFamily: "var(--font-mono)",
-          textTransform: "uppercase",
-          letterSpacing: "0.06em",
-        }}>online</span>
-      </div>
-      <div ref={scrollRef} style={{
-        padding: 16,
-        height: 200,
-        overflowY: "auto",
-        display: "flex",
-        flexDirection: "column",
-        gap: 10,
-        fontSize: 13,
-      }}>
-        {msgs.map((m, i) => (
-          <div key={i} style={{
-            alignSelf: m.role === "user" ? "flex-end" : "flex-start",
-            maxWidth: "85%",
-            padding: "8px 12px",
-            background: m.role === "user" ? "var(--accent)" : "var(--bg-elev)",
-            color: m.role === "user" ? "white" : "var(--text)",
-            border: m.role === "user" ? "none" : "1px solid var(--line)",
-            borderRadius: 12,
-            lineHeight: 1.5,
-          }}>{m.text}</div>
-        ))}
-        {thinking && (
-          <div style={{
-            alignSelf: "flex-start",
-            padding: "8px 12px",
-            background: "var(--bg-elev)",
-            border: "1px solid var(--line)",
-            borderRadius: 12,
-            display: "flex", gap: 4, alignItems: "center",
-          }}>
-            {[0,1,2].map(i => (
-              <span key={i} style={{
-                width: 5, height: 5, borderRadius: "50%",
-                background: "var(--text-faint)",
-                animation: `pulse-dot 1.2s ${i * 0.15}s infinite`,
-              }} />
-            ))}
-          </div>
-        )}
-      </div>
-      <form onSubmit={(e) => { e.preventDefault(); send(); }} style={{
-        display: "flex",
-        gap: 8,
-        padding: 12,
-        borderTop: "1px solid var(--line)",
-        background: "var(--bg-elev)",
-      }}>
-        <input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Ask about a project, stack, or timeline…"
-          style={{
-            flex: 1,
-            background: "var(--bg-card)",
-            color: "var(--text)",
-            border: "1px solid var(--line)",
-            borderRadius: 8,
-            padding: "9px 12px",
-            fontSize: 13,
-            fontFamily: "inherit",
-            outline: "none",
-          }}
-        />
-        <button type="submit" style={{
-          padding: "0 12px",
-          background: "var(--text)",
-          color: "var(--bg)",
-          border: "none",
-          borderRadius: 8,
-          fontSize: 12,
-          fontWeight: 500,
-          display: "flex", alignItems: "center", gap: 6,
-        }}><Icons.Send size={12} /></button>
-      </form>
-    </div>
-  );
-};
-
-const Footer = () => {
+const Footer = ({ lang = "en" }) => {
   const D = PORTFOLIO_DATA;
+  const bn = lang === "bn";
   return (
     <footer style={{
       borderTop: "1px solid var(--line)",
@@ -522,8 +404,12 @@ const Footer = () => {
           <Icons.Logo size={22} />
           <span style={{ fontSize: 13, color: "var(--text-dim)" }}>{D.brand.name} · {D.brand.domain}</span>
         </div>
-        <div style={{ fontSize: 12, color: "var(--text-faint)", fontFamily: "var(--font-mono)" }}>
-          © 2026 — Built with intent.
+        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+          <a href="#/privacy" style={{ fontSize: 12.5, color: "var(--text-dim)" }}>{bn ? "প্রাইভেসি" : "Privacy"}</a>
+          <a href="#/terms" style={{ fontSize: 12.5, color: "var(--text-dim)" }}>{bn ? "শর্তাবলী" : "Terms"}</a>
+          <div style={{ fontSize: 12, color: "var(--text-faint)", fontFamily: "var(--font-mono)" }}>
+            {bn ? "© ২০২৬ — যত্ন করে তৈরি।" : "© 2026 — Built with intent."}
+          </div>
         </div>
       </div>
     </footer>

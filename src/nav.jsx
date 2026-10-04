@@ -1,21 +1,33 @@
 // Top nav — minimal, sticky, blurred — mobile-responsive
-const Nav = ({ onCmdK, theme, onToggleTheme, accent, lang, onToggleLang }) => {
+const NAV_LINKS = [
+  { id: "services", label: "Services", labelBn: "সার্ভিস", url: "#/services" },
+  { id: "case-studies", label: "Case Studies", labelBn: "কেস স্টাডি", url: "#/case-studies" },
+  { id: "pricing", label: "Pricing", labelBn: "মূল্য", url: "#/pricing" },
+  { id: "blog", label: "Blog", labelBn: "ব্লগ", url: "#/blog" },
+  { id: "contact", label: "Contact", labelBn: "যোগাযোগ", url: "#/contact" },
+]
+
+const NAV_TXT = {
+  en: { search: "Search", getQuote: "Get a Quote", clientLogin: "Client Login", getStarted: "Get Started" },
+  bn: { search: "খুঁজুন", getQuote: "কোট নিন", clientLogin: "ক্লায়েন্ট লগইন", getStarted: "শুরু করুন" },
+};
+
+// Where a self-serve account should land right after signing up -- the client portal's own
+// service catalog, not a blank dashboard. aura-auth's /register already reads and honors `next`.
+const REGISTER_URL = "https://auth.auraajenticai.cloud/register?next=" + encodeURIComponent("https://client.auraajenticai.cloud/services");
+
+const Nav = ({ onCmdK, theme, onToggleTheme, accent, lang, onToggleLang, route }) => {
   const [scrolled, setScrolled] = React.useState(false);
   const [menuOpen, setMenuOpen] = React.useState(false);
+  const links = NAV_LINKS;
+  const t = NAV_TXT[lang] || NAV_TXT.en;
+  const bn = lang === "bn";
 
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
-  const links = [
-    { id: "work", label: "Services" },
-    { id: "stack", label: "Stack" },
-    { id: "agents", label: "Agents" },
-    { id: "timeline", label: "Timeline" },
-    { id: "contact", label: "Contact" },
-  ];
 
   return (
     <>
@@ -54,18 +66,26 @@ const Nav = ({ onCmdK, theme, onToggleTheme, accent, lang, onToggleLang }) => {
 
           {/* Center links — hidden on mobile */}
           <div style={{ display: "flex", gap: 4, alignItems: "center" }} className="nav-links">
-            {links.map(l => (
-              <a key={l.id} href={"#" + l.id} style={{
-                fontSize: 13.5,
-                color: "var(--text-dim)",
-                padding: "6px 12px",
-                borderRadius: 8,
-                transition: "all 0.15s",
-              }}
-                onMouseEnter={e => { e.currentTarget.style.color = "var(--text)"; e.currentTarget.style.background = "var(--line)"; }}
-                onMouseLeave={e => { e.currentTarget.style.color = "var(--text-dim)"; e.currentTarget.style.background = "transparent"; }}
-              >{l.label}</a>
-            ))}
+            {links.map(l => {
+              const isActive = route === l.id;
+              return (
+                <a key={l.id} href={l.url || `#/${l.id}`} style={{
+                  fontSize: 13.5,
+                  color: isActive ? "var(--text)" : "var(--text-dim)",
+                  background: isActive ? "var(--line)" : "transparent",
+                  padding: "6px 12px",
+                  borderRadius: 8,
+                  transition: "all 0.15s",
+                  fontWeight: isActive ? 500 : 400,
+                }}
+                  onMouseEnter={e => { e.currentTarget.style.color = "var(--text)"; e.currentTarget.style.background = "var(--line)"; }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.color = isActive ? "var(--text)" : "var(--text-dim)";
+                    e.currentTarget.style.background = isActive ? "var(--line)" : "transparent";
+                  }}
+                >{bn && l.labelBn ? l.labelBn : l.label}</a>
+              );
+            })}
           </div>
 
           {/* Right — desktop */}
@@ -82,7 +102,7 @@ const Nav = ({ onCmdK, theme, onToggleTheme, accent, lang, onToggleLang }) => {
               fontSize: 12.5,
             }}>
               <Icons.Search size={13} />
-              <span>Search</span>
+              <span>{t.search}</span>
               <kbd style={{
                 fontFamily: "var(--font-mono)",
                 fontSize: 10.5,
@@ -118,7 +138,7 @@ const Nav = ({ onCmdK, theme, onToggleTheme, accent, lang, onToggleLang }) => {
               {lang === "en" ? "বাং" : "EN"}
             </button>
 
-            <a href="mailto:hello@auraajenticai.cloud?subject=Project Quote" className="nav-quote-btn" style={{
+            <a href="mailto:ceo@auraajenticai.cloud?subject=Project Quote" className="nav-quote-btn" style={{
               padding: "7px 13px",
               background: "transparent",
               border: "1px solid var(--line)",
@@ -129,10 +149,24 @@ const Nav = ({ onCmdK, theme, onToggleTheme, accent, lang, onToggleLang }) => {
               textDecoration: "none",
               whiteSpace: "nowrap",
             }}>
-              Get a Quote
+              {t.getQuote}
             </a>
 
             <a href="https://auth.auraajenticai.cloud/login" className="nav-login-btn" style={{
+              padding: "8px 12px",
+              background: "transparent",
+              border: "1px solid var(--line)",
+              borderRadius: 8,
+              color: "var(--text-dim)",
+              fontSize: 13,
+              fontWeight: 500,
+              textDecoration: "none",
+              whiteSpace: "nowrap",
+            }}>
+              {t.clientLogin}
+            </a>
+
+            <a href={REGISTER_URL} className="nav-signup-btn" style={{
               display: "flex",
               alignItems: "center",
               gap: 6,
@@ -145,7 +179,7 @@ const Nav = ({ onCmdK, theme, onToggleTheme, accent, lang, onToggleLang }) => {
               textDecoration: "none",
               whiteSpace: "nowrap",
             }}>
-              Client Login <Icons.Arrow size={13} />
+              {t.getStarted} <Icons.Arrow size={13} />
             </a>
           </div>
 
@@ -187,10 +221,10 @@ const Nav = ({ onCmdK, theme, onToggleTheme, accent, lang, onToggleLang }) => {
             .nav-search-btn { display: none !important; }
             .nav-quote-btn { display: none !important; }
             .nav-badge { display: none !important; }
-            .nav-lang-btn { display: none !important; }
           }
           @media (max-width: 480px) {
             .nav-login-btn { display: none !important; }
+            .nav-signup-btn { display: none !important; }
             .nav-hamburger { display: flex !important; }
           }
         `}</style>
@@ -216,7 +250,7 @@ const Nav = ({ onCmdK, theme, onToggleTheme, accent, lang, onToggleLang }) => {
           {links.map(l => (
             <a
               key={l.id}
-              href={"#" + l.id}
+              href={l.url || `#${l.id}`}
               onClick={() => setMenuOpen(false)}
               style={{
                 fontSize: 15,
@@ -226,7 +260,7 @@ const Nav = ({ onCmdK, theme, onToggleTheme, accent, lang, onToggleLang }) => {
                 display: "block",
                 borderBottom: "1px solid var(--line)",
               }}
-            >{l.label}</a>
+            >{bn && l.labelBn ? l.labelBn : l.label}</a>
           ))}
           <div style={{ display: "flex", gap: 8, marginTop: 14, flexWrap: "wrap" }}>
             <button onClick={() => { onToggleTheme(); setMenuOpen(false); }} style={{
@@ -253,7 +287,7 @@ const Nav = ({ onCmdK, theme, onToggleTheme, accent, lang, onToggleLang }) => {
               {lang === "en" ? "বাংলা" : "English"}
             </button>
             <a
-              href="mailto:hello@auraajenticai.cloud?subject=Project Quote"
+              href="mailto:ceo@auraajenticai.cloud?subject=Project Quote"
               onClick={() => setMenuOpen(false)}
               style={{
                 padding: "8px 14px",
@@ -264,9 +298,23 @@ const Nav = ({ onCmdK, theme, onToggleTheme, accent, lang, onToggleLang }) => {
                 fontSize: 13,
                 textDecoration: "none",
               }}
-            >Get a Quote</a>
+            >{t.getQuote}</a>
             <a
               href="https://auth.auraajenticai.cloud/login"
+              onClick={() => setMenuOpen(false)}
+              style={{
+                padding: "8px 14px",
+                background: "transparent",
+                border: "1px solid var(--line)",
+                color: "var(--text-dim)",
+                fontSize: 13,
+                fontWeight: 500,
+                borderRadius: 8,
+                textDecoration: "none",
+              }}
+            >{t.clientLogin}</a>
+            <a
+              href={REGISTER_URL}
               onClick={() => setMenuOpen(false)}
               style={{
                 padding: "8px 14px",
@@ -277,7 +325,7 @@ const Nav = ({ onCmdK, theme, onToggleTheme, accent, lang, onToggleLang }) => {
                 borderRadius: 8,
                 textDecoration: "none",
               }}
-            >Client Login</a>
+            >{t.getStarted}</a>
           </div>
         </div>
       )}
